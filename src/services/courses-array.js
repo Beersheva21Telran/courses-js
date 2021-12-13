@@ -1,33 +1,33 @@
 class CoursesArray {
+    #courses;
     constructor() {
-        this.courses = [];
+        this.#courses = [];
     }
 
     add(course) {
-        this.courses.push(course);
+        this.#courses.push(course);
     }
-
+    
     remove(id) {
-        let index = this.get(id)
-            ;
-        this.courses.splice(index, 1);
+        this.#courses.splice(this.#getIndex(id), 1);
     }
-
+    
     get(id) {
-        if (id == undefined) { return this.courses; }
-        let index = this.courses.findIndex((e) => e.id == id);
-        return this.courses[index];
+        return id != undefined ? this.#courses.find(c => c.id == id ) : [...this.#courses];
     }
-
+    
     update(id, newCourse) {
-        let index = this.get(id)
-            ;
-        this.courses[index] = newCourse;
+        this.#courses[this.#getIndex(id)] = newCourse;
+    }
+    
+    exists(id) {
+        return this.#getIndex(id) >= 0;
     }
 
-    exists(id) {
-        return this.get(id)
-            != null ? true : false;
+    #getIndex(id) {
+        let index = this.#courses.findIndex((e) => e.id == id);
+        return index;
     }
+
 }
 export default CoursesArray;
