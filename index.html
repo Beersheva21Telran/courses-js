@@ -1,12 +1,67 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <form id="course-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 ">
+                    <label class="form-label" for="course-name">Course Name</label>
+                    <select id="course-name" class="form-select" name="courseName" required>
+                        <option value hidden disabled selected>--Select course name--</option>
+
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label" for="lecturer-name">Lecturer Name</label>
+                    <select id="lecturer-name" class="form-select" name="lecturerName" required>
+                        <option value hidden disabled selected>--Select lecture name--</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <label class="form-label" for="hours">Hours</label>
+                    <input type="number" class="form-control" id="hours" name="hours" required>
+
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label" for="cost">Cost</label>
+                    <input type="number" class="form-control" id="cost" name="cost" required>
+
+                </div>
+            </div>
+            <div>
+                <label class="form-label" for="date">Open Date</label>
+                <input type="date" class="form-control" id="date" name="openDate" required>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-4  form-check">
+                    <input type="radio" class="form-check-input" id="programming" name="type"
+                     value="Programming" required>
+                     <label class="form-check-label" for="programming">Programming</label>
+                </div>
+                <div class="col-sm-4  form-check">
+                    <input type="radio" class="form-check-input" id="testing" name="type"
+                     value="QA">
+                     <label class="form-check-label" for="testing">QA</label>
+                </div>
+
+             </div>
+             <div></div>
+
+            </div>
+
+    </form>
     <script src="dist/bundle.js"></script>
 </body>
+
 </html>
