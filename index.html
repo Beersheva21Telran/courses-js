@@ -11,23 +11,21 @@
 <body>
     <form id="course-form">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-4 mt-sm-0">
                 <div class="col-sm-4 ">
-                    <label class="form-label" for="course-name">Course Name</label>
                     <select id="course-name" class="form-select" name="courseName" required>
                         <option value hidden disabled selected>--Select course name--</option>
 
                     </select>
                 </div>
-                <div class="col-sm-4">
-                    <label class="form-label" for="lecturer-name">Lecturer Name</label>
+                <div class="col-sm-4 gy-4 gy-sm-0">
                     <select id="lecturer-name" class="form-select" name="lecturerName" required>
                         <option value hidden disabled selected>--Select lecture name--</option>
 
                     </select>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-4 mt-sm-0">
                 <div class="col-sm-4">
                     <label class="form-label" for="hours">Hours</label>
                     <input type="number" class="form-control" id="hours" name="hours" required>
@@ -39,26 +37,45 @@
 
                 </div>
             </div>
-            <div>
+            <div class="offset-sm-4 col-sm-4">
                 <label class="form-label" for="date">Open Date</label>
                 <input type="date" class="form-control" id="date" name="openDate" required>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-sm-4  form-check">
-                    <input type="radio" class="form-check-input" id="programming" name="type"
-                     value="Programming" required>
-                     <label class="form-check-label" for="programming">Programming</label>
+            <div class="row justify-content-evenly border mt-4 ">
+                <label class="d-block text-center fw-bold mb-3">Type</label>
+                <div class="col-4  gx-4 gx-sm-0 form-check">
+                    <input type="radio" class="form-check-input" id="programming" name="type" value="Programming"
+                        required>
+                    <label class="form-check-label" for="programming">Programming</label>
                 </div>
-                <div class="col-sm-4  form-check">
-                    <input type="radio" class="form-check-input" id="testing" name="type"
-                     value="QA">
-                     <label class="form-check-label" for="testing">QA</label>
+                <div class="col-4  gx-4 gx-sm-0 form-check">
+                    <input type="radio" class="form-check-input" id="testing" name="type" value="QA">
+                    <label class="form-check-label" for="testing">QA</label>
                 </div>
-
-             </div>
-             <div></div>
 
             </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-sm-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="day"
+                     name="dayEvening" value="day">
+                     <label class="form-check-label" for="day">day</label>
+
+                </div>
+                <div class="col-sm-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="evening"
+                     name="dayEvening" value="evening">
+                     <label class="form-check-label" for="evening">evening</label>
+
+                </div>
+
+
+            </div>
+            <div class="row justify-content-evenly">
+                <button class="col-4 btn btn-outline-primary " type="submit">Submit</button>
+                <button class="col-4 btn btn-outline-secondary " type="reset">Reset</button>
+            </div>
+
+        </div>
 
     </form>
     <script src="dist/bundle.js"></script>
