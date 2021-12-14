@@ -7,6 +7,9 @@ export default class Colledge {
         this.#courseData = courseData;
     }
     addCourse(course) {
+        course.hours = +course.hours;
+        course.cost = +course.cost;
+        course.openDate = new Date(course.openDate);
         if (!this.#validate(course)) {
             return null;
         }

@@ -5,10 +5,11 @@ import courseData from "./config/courseData.json";
 import Colledge from "./services/colledge";
 import { courseProvider } from "./config/servicesConfig";
 import createCourse from "./models/Course";
+import FormHandler from "./ui/form-handler";
 const N_RANDOM_COURSES = 20;
 const colledge = new Colledge(courseProvider, courseData);
-createRandomCourses();
-debugDisplayColledge();
+//createRandomCourses();
+//debugDisplayColledge();
 function createRandomCourses() {
     const { minCost, maxCost, minHours, maxHours, minYear, maxYear, courseNames, lecturers, types, timing } = { ...courseData };
     for (let i = 0; i < N_RANDOM_COURSES; i++) {
@@ -29,6 +30,13 @@ function debugDisplayColledge() {
         console.log(JSON.stringify(element));
     });
 }
+const formCourse = new FormHandler("course-form");
+FormHandler.fillOptions("course-name", courseData.courseNames);
+FormHandler.fillOptions("lecturer-name", courseData.lecturers);
+formCourse.addHandler(colledge.addCourse.bind(colledge))
+    
+
+
 
 
 
