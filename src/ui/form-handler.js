@@ -48,7 +48,18 @@ export default class FormHandler {
     #onSubmit(handlerFn, event) {
         event.preventDefault();
         const obj = this.#inputElements.reduce(createObject,{});
-        handlerFn(obj);
+        try {
+            handlerFn(obj);
+            this.#formElement.reset();
+            this.#alertElement.innerHTML = '';
+        } catch (err) {
+            const alert = `
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> ${err}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+            this.#alertElement.innerHTML = alert;
+        }
     
     }
 

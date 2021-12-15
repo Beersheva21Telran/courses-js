@@ -30,7 +30,7 @@ function debugDisplayColledge() {
         console.log(JSON.stringify(element));
     });
 }
-const formCourse = new FormHandler("course-form");
+const formCourse = new FormHandler("course-form","alert-place");
 FormHandler.fillOptions("course-name", courseData.courseNames);
 FormHandler.fillOptions("lecturer-name", courseData.lecturers);
 formCourse.addHandler(colledge.addCourse.bind(colledge))
