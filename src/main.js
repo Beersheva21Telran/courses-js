@@ -6,6 +6,7 @@ import Colledge from "./services/colledge";
 import { courseProvider } from "./config/servicesConfig";
 import createCourse from "./models/Course";
 import FormHandler from "./ui/form-handler";
+import TableHandler from "./ui/table-handler";
 const N_RANDOM_COURSES = 20;
 const colledge = new Colledge(courseProvider, courseData);
 //createRandomCourses();
@@ -30,10 +31,17 @@ function debugDisplayColledge() {
         console.log(JSON.stringify(element));
     });
 }
-const formCourse = new FormHandler("course-form","alert-place");
-FormHandler.fillOptions("course-name", courseData.courseNames);
-FormHandler.fillOptions("lecturer-name", courseData.lecturers);
-formCourse.addHandler(colledge.addCourse.bind(colledge))
+// const formCourse = new FormHandler("course-form","alert-place");
+const sortFnName = "coursesSort";
+const tableCourses = new TableHandler("courses-header", "courses-body",
+ ["id","courseName", "lecturerName", "hours", "cost"], sortFnName);
+// FormHandler.fillOptions("course-name", courseData.courseNames);
+// FormHandler.fillOptions("lecturer-name", courseData.lecturers);
+// formCourse.addHandler(colledge.addCourse.bind(colledge))
+
+window.coursesSort = function(key) {
+    console.log("sorting by " + key);
+}
     
 
 
