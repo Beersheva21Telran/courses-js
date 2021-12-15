@@ -36,7 +36,7 @@ export default class FormHandler {
 
     }
     addHandler(handlerFn) {
-        this.#formElement.addEventListener('submit',this.#onSubmit.bind(this,handlerFn))
+        this.#formElement.addEventListener('submit', this.#onSubmit.bind(this, handlerFn))
     }
     static fillOptions(idSelect, options) {
         const selectElement = document.getElementById(idSelect);
@@ -47,7 +47,7 @@ export default class FormHandler {
     }
     #onSubmit(handlerFn, event) {
         event.preventDefault();
-        const obj = this.#inputElements.reduce(createObject,{});
+        const obj = this.#inputElements.reduce(createObject, {});
         try {
             handlerFn(obj);
             this.#formElement.reset();
@@ -60,7 +60,7 @@ export default class FormHandler {
             </div>`;
             this.#alertElement.innerHTML = alert;
         }
-    
+
     }
 
 }

@@ -9,8 +9,9 @@ import FormHandler from "./ui/form-handler";
 import TableHandler from "./ui/table-handler";
 const N_RANDOM_COURSES = 20;
 const colledge = new Colledge(courseProvider, courseData);
-//createRandomCourses();
-//debugDisplayColledge();
+createRandomCourses();
+debugDisplayColledge();
+
 function createRandomCourses() {
     const { minCost, maxCost, minHours, maxHours, minYear, maxYear, courseNames, lecturers, types, timing } = { ...courseData };
     for (let i = 0; i < N_RANDOM_COURSES; i++) {
@@ -32,16 +33,20 @@ function debugDisplayColledge() {
     });
 }
 // const formCourse = new FormHandler("course-form","alert-place");
-const sortFnName = "coursesSort";
+const coursesSort = function(key) {
+    tableCourses.clear();
+    colledge.sort(key).forEach(c => tableCourses.addRow(c, c.id));
+}
 const tableCourses = new TableHandler("courses-header", "courses-body",
- ["id","courseName", "lecturerName", "hours", "cost"], sortFnName);
+ ["id","courseName", "lecturerName", "hours", "cost", "openDate"], coursesSort);
+ debugDisplayColledge();
+ colledge.getAllCourses().forEach(c => tableCourses.addRow(c, c.id));
+
 // FormHandler.fillOptions("course-name", courseData.courseNames);
 // FormHandler.fillOptions("lecturer-name", courseData.lecturers);
 // formCourse.addHandler(colledge.addCourse.bind(colledge))
 
-window.coursesSort = function(key) {
-    console.log("sorting by " + key);
-}
+
     
 
 

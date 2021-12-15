@@ -56,4 +56,7 @@ export default class Colledge {
     getAllCourses() {
         return this.#coursesProvider.get();
     }
+    sort(key) {
+        return _.sortBy(this.getAllCourses(), key)
+    }
 }
