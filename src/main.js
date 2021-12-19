@@ -7,9 +7,9 @@ import { courseProvider } from "./config/servicesConfig";
 import createCourse from "./models/Course";
 import FormHandler from "./ui/form-handler";
 import TableHandler from "./ui/table-handler";
-const N_RANDOM_COURSES = 20;
+const N_RANDOM_COURSES = 5;
 const colledge = new Colledge(courseProvider, courseData);
-window.removeCourse = function(id) {
+window.removeCourse = function (id) {
     if (confirm(`you are going to remove course with id=${id}`)) {
         colledge.removeCourseById(id);
         tableCourses.removeRow(id);
@@ -33,33 +33,36 @@ function createRandomCourses() {
     }
 }
 
-// const formCourse = new FormHandler("course-form","alert-place");
-const coursesSort = function(key) {
+ const formCourse = new FormHandler("course-form","alert-place");
+const coursesSort = function (key) {
     tableCourses.clear();
     colledge.sort(key).forEach(c => tableCourses.addRow(c, c.id));
 }
 const tableCourses = new TableHandler("courses-header", "courses-body",
- ["id","courseName", "lecturerName", "hours", "cost", "openDate"], coursesSort, "removeCourse");
- debugDisplayColledge();
- debugDisplayColledge();
- 
+    ["id", "courseName", "lecturerName", "hours", "cost", "openDate"], coursesSort, "removeCourse");
+debugDisplayColledge();
+debugDisplayColledge();
 
-// FormHandler.fillOptions("course-name", courseData.courseNames);
-// FormHandler.fillOptions("lecturer-name", courseData.lecturers);
-// formCourse.addHandler(colledge.addCourse.bind(colledge))
+
+FormHandler.fillOptions("course-name", courseData.courseNames);
+FormHandler.fillOptions("lecturer-name", courseData.lecturers);
+formCourse.addHandler(course => {
+    colledge.addCourse(course);
+    tableCourses.addRow(course, course.id);
+})
 
 function debugDisplayColledge() {
-    
+
     colledge.getAllCourses().forEach(element => {
         console.log(JSON.stringify(element));
         tableCourses.addRow(element, element.id);
-        
+
     });
 }
-const getIntervalHours = function(interval) {
+const getIntervalHours = function (interval) {
     tableIntervalHours.clear();
     let arr = colledge.getElementsByHours(interval);
-    arr.forEach(c => tableIntervalHours.addRow(c));   
+    arr.forEach(c => tableIntervalHours.addRow(c));
 }
 
 const formHoursStatistics = new FormHandler("hours-statistics-form");
@@ -68,10 +71,10 @@ formHoursStatistics.addHandler(getIntervalHours);
 const tableIntervalHours = new TableHandler("interval-hours-header", "interval-hours-body", ["minInterval", "maxInterval", "amount"]);
 
 
-const getIntervalCost = function(interval) {
+const getIntervalCost = function (interval) {
     tableIntervalcost.clear();
     let arr = colledge.getElementsByCost(interval);
-    arr.forEach(c => tableIntervalcost.addRow(c));   
+    arr.forEach(c => tableIntervalcost.addRow(c));
 }
 
 const formCostStatistics = new FormHandler("cost-statistics-form");
@@ -81,7 +84,7 @@ const tableIntervalcost = new TableHandler("interval-cost-header", "interval-cos
 
 
 
-    
+
 
 
 

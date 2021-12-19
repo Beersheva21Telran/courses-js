@@ -73,8 +73,8 @@ export default class Colledge {
 
     getElementsByCost(value){
         let interval = value.interval;
-        let arr = this.#coursesProvider.get();
-        let objStat =  _.countBy(arr, e => {   
+        let courses = this.#coursesProvider.get();
+        let objStat =  _.countBy(courses, e => {   
            return Math.floor(e.cost/interval)*interval;
         });
         return this.#getInterval(objStat, interval)

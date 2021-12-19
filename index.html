@@ -12,161 +12,183 @@
     <div id="alert-place" style="position: fixed; top: 0;">
 
     </div>
-    <!-- <form id="course-form">
-        <div class="container">
-            <div class="row justify-content-center mt-4 mt-sm-0">
-                <div class="col-sm-4 ">
-                    <select id="course-name" class="form-select" name="courseName" required>
-                        <option value hidden disabled selected>--Select course name--</option>
-
-                    </select>
-                </div>
-                <div class="col-sm-4 gy-4 gy-sm-0">
-                    <select id="lecturer-name" class="form-select" name="lecturerName" required>
-                        <option value hidden disabled selected>--Select lecture name--</option>
-
-                    </select>
-                </div>
-            </div>
-            <div class="row justify-content-center mt-4 mt-sm-0">
-                <div class="col-sm-4">
-                    <label class="form-label" for="hours">Hours</label>
-                    <input type="number" class="form-control" id="hours" name="hours" required>
-
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-label" for="cost">Cost</label>
-                    <input type="number" class="form-control" id="cost" name="cost" required>
-
-                </div>
-            </div>
-            <div class="offset-sm-4 col-sm-4">
-                <label class="form-label" for="date">Open Date</label>
-                <input type="date" class="form-control" id="date" name="openDate" required>
-            </div>
-            <div class="row justify-content-evenly border mt-4 ">
-                <label class="d-block text-center fw-bold mb-3">Type</label>
-                <div class="col-4  gx-4 gx-sm-0 form-check">
-                    <input type="radio" class="form-check-input" id="programming" name="type" value="Programming"
-                        required>
-                    <label class="form-check-label" for="programming">Programming</label>
-                </div>
-                <div class="col-4  gx-4 gx-sm-0 form-check">
-                    <input type="radio" class="form-check-input" id="testing" name="type" value="QA">
-                    <label class="form-check-label" for="testing">QA</label>
-                </div>
-
-            </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-sm-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="day"
-                     name="dayEvening" value="day">
-                     <label class="form-check-label" for="day">day</label>
-
-                </div>
-                <div class="col-sm-4 form-check">
-                    <input type="checkbox" class="form-check-input" id="evening"
-                     name="dayEvening" value="evening">
-                     <label class="form-check-label" for="evening">evening</label>
-
-                </div>
-
-
-            </div>
-            <div class="row justify-content-evenly">
-                <button class="col-4 btn btn-outline-primary " type="submit">Submit</button>
-                <button class="col-4 btn btn-outline-secondary " type="reset">Reset</button>
-            </div>
-
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#new-course" type="button" role="tab" aria-controls="nav-home" aria-selected="true">New Course</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#courses-list" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">List of Courses</button>
+          <button class="nav-link" id="nav-hours-tab" data-bs-toggle="tab" data-bs-target="#hours-statistics" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Hours Statistics</button>
+          <button class="nav-link" id="nav-cost-tab" data-bs-toggle="tab" data-bs-target="#cost-statistics" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Cost Statistics</button>
         </div>
-
-    </form> -->
-    <div class="container table-responsive">
-        <table class="table">
-            <thead>
-                <tr id="courses-header">
-                    
-                </tr>
-            </thead>
-            <tbody id="courses-body">
-
-            </tbody>
-
-        </table>
-    </div>
-    <section>
-        <section>
-            <form id="hours-statistics-form">
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="new-course" role="tabpanel" aria-labelledby="nav-home-tab">
+            <form id="course-form">
                 <div class="container">
-                    <div class="row justify-content-center border border-1">
-                        <div class="col-sm-4 border border-1">
-                            <select id="select-hours" class="form-select" name="interval" required>
-                                <option value hidden disabled selected>– select hours interval —</option>
+                    <div class="row justify-content-center mt-4 mt-sm-0">
+                        <div class="col-sm-4 ">
+                            <select id="course-name" class="form-select" name="courseName" required>
+                                <option value hidden disabled selected>--Select course name--</option>
+        
                             </select>
                         </div>
-                        <div class="col-sm-4">
-                            <button type="submit">Get statistics</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <section>
-            <div class="container table-interval-hours">
-                <table class="table">
-                    <thead>
-                        <tr id="interval-hours-header">
-
-                        </tr>
-                    </thead>
-                    <tbody id="interval-hours-body">
-
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-
-    </section>
-
-
-
-
-    <section>
-        <section>
-            <form id="cost-statistics-form">
-                <div class="container">
-                    <div class="row justify-content-center border border-1">
-                        <div class="col-sm-4 border border-1">
-                            <select id="select-cost" class="form-select" name="interval" required>
-                                <option value hidden disabled selected>– select cost interval —</option>
+                        <div class="col-sm-4 gy-4 gy-sm-0">
+                            <select id="lecturer-name" class="form-select" name="lecturerName" required>
+                                <option value hidden disabled selected>--Select lecture name--</option>
+        
                             </select>
                         </div>
+                    </div>
+                    <div class="row justify-content-center mt-4 mt-sm-0">
                         <div class="col-sm-4">
-                            <button type="submit">Get statistics</button>
+                            <label class="form-label" for="hours">Hours</label>
+                            <input type="number" class="form-control" id="hours" name="hours" required>
+        
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="cost">Cost</label>
+                            <input type="number" class="form-control" id="cost" name="cost" required>
+        
                         </div>
                     </div>
+                    <div class="offset-sm-4 col-sm-4">
+                        <label class="form-label" for="date">Open Date</label>
+                        <input type="date" class="form-control" id="date" name="openDate" required>
+                    </div>
+                    <div class="row justify-content-evenly border mt-4 ">
+                        <label class="d-block text-center fw-bold mb-3">Type</label>
+                        <div class="col-4  gx-4 gx-sm-0 form-check">
+                            <input type="radio" class="form-check-input" id="programming" name="type" value="Programming"
+                                required>
+                            <label class="form-check-label" for="programming">Programming</label>
+                        </div>
+                        <div class="col-4  gx-4 gx-sm-0 form-check">
+                            <input type="radio" class="form-check-input" id="testing" name="type" value="QA">
+                            <label class="form-check-label" for="testing">QA</label>
+                        </div>
+        
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-sm-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="day"
+                             name="dayEvening" value="day">
+                             <label class="form-check-label" for="day">day</label>
+        
+                        </div>
+                        <div class="col-sm-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="evening"
+                             name="dayEvening" value="evening">
+                             <label class="form-check-label" for="evening">evening</label>
+        
+                        </div>
+        
+        
+                    </div>
+                    <div class="row justify-content-evenly">
+                        <button class="col-4 btn btn-outline-primary " type="submit">Submit</button>
+                        <button class="col-4 btn btn-outline-secondary " type="reset">Reset</button>
+                    </div>
+        
                 </div>
+        
             </form>
-        </section>
-        <section>
-            <div class="container table-interval-cost">
+        </div>
+        <div class="tab-pane fade" id="courses-list" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="container table-responsive">
                 <table class="table">
                     <thead>
-                        <tr id="interval-cost-header">
-
+                        <tr id="courses-header">
+                            
                         </tr>
                     </thead>
-                    <tbody id="interval-cost-body">
-
+                    <tbody id="courses-body">
+        
                     </tbody>
+        
                 </table>
             </div>
-        </section>
+        </div>
+        <div class="tab-pane fade" id="hours-statistics" role="tabpanel" aria-labelledby="nav-hours-tab">
+            <section>
+                <section>
+                    <form id="hours-statistics-form">
+                        <div class="container">
+                            <div class="row justify-content-center border border-1">
+                                <div class="col-sm-4 border border-1">
+                                    <select id="select-hours" class="form-select" name="interval" required>
+                                        <option value hidden disabled selected>– select hours interval —</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit">Get statistics</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+        
+                <section>
+                    <div class="container table-interval-hours">
+                        <table class="table">
+                            <thead>
+                                <tr id="interval-hours-header">
+        
+                                </tr>
+                            </thead>
+                            <tbody id="interval-hours-body">
+        
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+        
+        
+            </section>
+        </div>
+        <div class="tab-pane fade" id="cost-statistics" role="tabpanel" aria-labelledby="nav-cost-tab">
+            <section>
+                <section>
+                    <form id="cost-statistics-form">
+                        <div class="container">
+                            <div class="row justify-content-center border border-1">
+                                <div class="col-sm-4 border border-1">
+                                    <select id="select-cost" class="form-select" name="interval" required>
+                                        <option value hidden disabled selected>– select cost interval —</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit">Get statistics</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <section>
+                    <div class="container table-interval-cost">
+                        <table class="table">
+                            <thead>
+                                <tr id="interval-cost-header">
+        
+                                </tr>
+                            </thead>
+                            <tbody id="interval-cost-body">
+        
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+        
+        
+            </section>
+        </div>
+      </div>
+    
+    
+   
 
 
-    </section>
+
+
+    
 
     <script src="dist/bundle.js"></script>
 </body>
