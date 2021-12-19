@@ -94,6 +94,80 @@
 
         </table>
     </div>
+    <section>
+        <section>
+            <form id="hours-statistics-form">
+                <div class="container">
+                    <div class="row justify-content-center border border-1">
+                        <div class="col-sm-4 border border-1">
+                            <select id="select-hours" class="form-select" name="interval" required>
+                                <option value hidden disabled selected>– select hours interval —</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit">Get statistics</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <div class="container table-interval-hours">
+                <table class="table">
+                    <thead>
+                        <tr id="interval-hours-header">
+
+                        </tr>
+                    </thead>
+                    <tbody id="interval-hours-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+    </section>
+
+
+
+
+    <section>
+        <section>
+            <form id="cost-statistics-form">
+                <div class="container">
+                    <div class="row justify-content-center border border-1">
+                        <div class="col-sm-4 border border-1">
+                            <select id="select-cost" class="form-select" name="interval" required>
+                                <option value hidden disabled selected>– select cost interval —</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit">Get statistics</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section>
+            <div class="container table-interval-cost">
+                <table class="table">
+                    <thead>
+                        <tr id="interval-cost-header">
+
+                        </tr>
+                    </thead>
+                    <tbody id="interval-cost-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+    </section>
+
     <script src="dist/bundle.js"></script>
 </body>
 

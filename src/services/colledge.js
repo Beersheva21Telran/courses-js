@@ -59,4 +59,35 @@ export default class Colledge {
     sort(key) {
         return _.sortBy(this.getAllCourses(), key)
     }
+    removeCourseById(id) {
+        this.#coursesProvider.remove(id)
+    }
+    getElementsByHours(value){
+        let interval = value.interval;
+        let arr = this.#coursesProvider.get();
+        let objStat =  _.countBy(arr, e => {   
+           return Math.floor(e.hours/interval)*interval;
+        });
+        return this.#getInterval(objStat, interval)
+    }
+
+    getElementsByCost(value){
+        let interval = value.interval;
+        let arr = this.#coursesProvider.get();
+        let objStat =  _.countBy(arr, e => {   
+           return Math.floor(e.cost/interval)*interval;
+        });
+        return this.#getInterval(objStat, interval)
+    }
+
+    #getInterval(objStat, interval){
+        let res = [];
+        for (let key in objStat) {
+            let minInterval = key;
+            let maxInterval = +key + +interval - 1;
+            let amount = objStat[key];
+            res.push({minInterval:minInterval, maxInterval:maxInterval, amount:amount});
+          }
+        return res;
+    }
 }
