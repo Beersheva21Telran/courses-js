@@ -6,16 +6,16 @@ export default class Colledge {
         this.#coursesProvider = coursesProvider;
         this.#courseData = courseData;
     }
-    addCourse(course) {
+    async addCourse(course) {
         course.hours = +course.hours;
         course.cost = +course.cost;
         course.openDate = new Date(course.openDate);
         if (!this.#validate(course)) {
             return null;
         }
-        const id = this.#getId();
+        const id = await this.#getId();
         course.id = id;
-        this.#coursesProvider.add(course)
+        return await this.#coursesProvider.add(course)
 
 
     }
@@ -46,34 +46,34 @@ export default class Colledge {
         return true;
     }
 
-    #getId() {
+    async #getId() {
         let randomId;
         do {
             randomId = getRandomInteger(this.#courseData.minId, this.#courseData.maxId);
-        } while (this.#coursesProvider.exists(randomId))
+        } while (await this.#coursesProvider.exists(randomId))
         return randomId;
     }
-    getAllCourses() {
-        return this.#coursesProvider.get();
+    async getAllCourses() {
+        return await this.#coursesProvider.get();
     }
-    sort(key) {
-        return _.sortBy(this.getAllCourses(), key)
+    async sort(key) {
+        return _.sortBy(await this.getAllCourses(), key)
     }
-    removeCourseById(id) {
-        this.#coursesProvider.remove(id)
+    async removeCourseById(id) {
+        return await this.#coursesProvider.remove(id)
     }
-    getElementsByHours(value){
+    async getElementsByHours(value){
         let interval = value.interval;
-        let arr = this.#coursesProvider.get();
+        let arr = await this.#coursesProvider.get();
         let objStat =  _.countBy(arr, e => {   
            return Math.floor(e.hours/interval)*interval;
         });
         return this.#getInterval(objStat, interval)
     }
 
-    getElementsByCost(value){
+    async getElementsByCost(value){
         let interval = value.interval;
-        let courses = this.#coursesProvider.get();
+        let courses = await this.#coursesProvider.get();
         let objStat =  _.countBy(courses, e => {   
            return Math.floor(e.cost/interval)*interval;
         });

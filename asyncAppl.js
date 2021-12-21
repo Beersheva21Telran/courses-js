@@ -34,21 +34,34 @@ function getProduct(user) {
 
 // function displayProduct() {
 //     const id = getId();
-//     getUser(id).then(user => getProduct(user)).then(product => console.log(product))
-//     .catch(err => err()).finally(() => console.log("bye"));
+//     getUser(id)
+//      .then(user => getProduct(user)).catch(err => {err(); return "kuku"})
+//      .then(product => console.log(product))
+//     .finally(() => console.log("bye"));
 // }
+// displayProduct();
+
 /*************************************************** */
 /**************** async/await syntax */
-async function displayProduct() {
-    const id = getId();
-    try {
-        const user = await getUser(id);
-        const product = await getProduct(user);
-        console.log(product);
-    } catch (err) {
-        err();
-    } finally {
-        console.log('bye')
-    }
-}
-displayProduct().then(()=>console.log("go to eat; good appetite "));
+// async function displayProduct() {
+//     const id = getId();
+//     try {
+//         const user = await getUser(id);
+//         const product = await getProduct(user);
+//         console.log(product);
+//     } catch (err) {
+//         err();
+//     } finally {
+//         console.log('bye')
+//     }
+// }
+//displayProduct().then(()=>console.log("go to eat; good appetite "));
+// function sleep(timeout) {
+//     return new Promise(resolve => setTimeout(resolve, timeout));
+//  }
+//  async function sleepTest() {
+//     console.log('My func start');
+//        await sleep(3000);
+//    console.log('My func finished')       
+//  }
+//  sleepTest().then(()=>console.log('bye'));
