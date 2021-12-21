@@ -45,11 +45,11 @@ export default class FormHandler {
         }
         selectElement.innerHTML += getOptions(options);
     }
-    #onSubmit(handlerFn, event) {
+    async #onSubmit(handlerFn, event) {
         event.preventDefault();
         const obj = this.#inputElements.reduce(createObject, {});
         try {
-            handlerFn(obj);
+            await handlerFn(obj);
             this.#formElement.reset();
             this.#alertElement.innerHTML = '';
         } catch (err) {

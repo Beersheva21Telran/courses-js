@@ -4,7 +4,7 @@ import { getRandomElement, getRandomInteger, getRandomDate } from "./util/random
 import courseData from "./config/courseData.json";
 import Colledge from "./services/colledge";
 import { courseProvider } from "./config/servicesConfig";
-import createCourse from "./models/Course";
+import getCourse from "./models/Course";
 import FormHandler from "./ui/form-handler";
 import TableHandler from "./ui/table-handler";
 const N_RANDOM_COURSES = 5;
@@ -22,23 +22,28 @@ const tableIntervalHours = new TableHandler("interval-hours-header", "interval-h
 /****************************************************************** */
 //functions
 async function createRandomCourses() {
-    const { minCost, maxCost, minHours, maxHours, minYear, maxYear, courseNames, lecturers, types, timing } = { ...courseData };
-    for (let i = 0; i < N_RANDOM_COURSES; i++) {
-        await createCourse(courseNames, lecturers, minHours, maxHours, minCost, maxCost, types, timing, minYear, maxYear);
+    const courses = await colledge.getAllCourses();
+    if (courses.length == 0) {
+        const { minCost, maxCost, minHours, maxHours, minYear, maxYear, courseNames, lecturers, types, timing } = { ...courseData };
+        for (let i = 0; i < N_RANDOM_COURSES; i++) {
+            const course = await createCourse(courseNames, lecturers, minHours, maxHours, minCost, maxCost, types, timing, minYear, maxYear);
+            tableCourses.addRow(course);
+        }
     }
+
 }
 window.removeCourse = async function (id) {
     if (confirm(`you are going to remove course with id=${id}`)) {
         try {
             await colledge.removeCourseById(id);
-             tableCourses.removeRow(id);
+            tableCourses.removeRow(id);
         } catch (err) {
             //TODO Alert functionality
         }
-       
+
     }
 }
-const coursesSort = async function (key) {
+ async function coursesSort (key) {
     tableCourses.clear();
     const sortedColledge = await colledge.sort(key);
     sortedColledge.forEach(c => tableCourses.addRow(c, c.id));
@@ -52,13 +57,13 @@ async function createCourse(courseNames, lecturers, minHours, maxHours, minCost,
     const dayEveningId = getRandomInteger(0, 2);
     const dayEvening = dayEveningId < 2 ? [timing[dayEveningId]] : timing;
     const startDate = getRandomDate(minYear, maxYear);
-    const course = createCourse(name, lecture, hours, cost, type, dayEvening, startDate);
-    await colledge.addCourse(course);
+    const course = getCourse(name, lecture, hours, cost, type, dayEvening, startDate);
+    return await colledge.addCourse(course);
 }
 
-function debugDisplayColledge() {
+async function displayColledge() {
 
-    colledge.getAllCourses().forEach(element => {
+    (await colledge.getAllCourses()).forEach(element => {
         console.log(JSON.stringify(element));
         tableCourses.addRow(element, element.id);
 
@@ -79,8 +84,8 @@ const getIntervalCost = async function (interval) {
 createRandomCourses();
 FormHandler.fillOptions("course-name", courseData.courseNames);
 FormHandler.fillOptions("lecturer-name", courseData.lecturers);
-formCourse.addHandler(course => {
-    colledge.addCourse(course);
+formCourse.addHandler(async course => {
+    await colledge.addCourse(course);
     tableCourses.addRow(course, course.id);
 })
 
