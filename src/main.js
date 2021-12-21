@@ -7,6 +7,7 @@ import { courseProvider } from "./config/servicesConfig";
 import getCourse from "./models/Course";
 import FormHandler from "./ui/form-handler";
 import TableHandler from "./ui/table-handler";
+import Spinner from "./ui/spinner";
 const N_RANDOM_COURSES = 5;
 //Creating required objects
 const colledge = new Colledge(courseProvider, courseData);
@@ -19,8 +20,20 @@ const tableIntervalcost = new TableHandler("interval-cost-header", "interval-cos
     ["minInterval", "maxInterval", "amount"]);
 const tableIntervalHours = new TableHandler("interval-hours-header", "interval-hours-body",
     ["minInterval", "maxInterval", "amount"]);
+    const spinner = new Spinner("spinner");
 /****************************************************************** */
 //functions
+async function waitWithSpinner(awaitFunc) {
+    spinner.start();
+    let res;
+    try {
+       res = await awaitFunc();
+    } finally {
+        spinner.stop();
+    }
+    
+    return res;
+}
 async function createRandomCourses() {
     const courses = await colledge.getAllCourses();
     if (courses.length == 0) {
@@ -35,7 +48,7 @@ async function createRandomCourses() {
 window.removeCourse = async function (id) {
     if (confirm(`you are going to remove course with id=${id}`)) {
         try {
-            await colledge.removeCourseById(id);
+            await waitWithSpinner(colledge.removeCourseById.bind(colledge,id));
             tableCourses.removeRow(id);
         } catch (err) {
             //TODO Alert functionality
@@ -45,7 +58,7 @@ window.removeCourse = async function (id) {
 }
  async function coursesSort (key) {
     tableCourses.clear();
-    const sortedColledge = await colledge.sort(key);
+    const sortedColledge = await waitWithSpinner(colledge.sort.bind(colledge,key));
     sortedColledge.forEach(c => tableCourses.addRow(c, c.id));
 }
 async function createCourse(courseNames, lecturers, minHours, maxHours, minCost, maxCost, types, timing, minYear, maxYear) {
@@ -71,12 +84,12 @@ async function displayColledge() {
 }
 const getIntervalHours = async function (interval) {
     tableIntervalHours.clear();
-    let arr = await colledge.getElementsByHours(interval);
+    let arr = await waitWithSpinner(colledge.getElementsByHours.bind(colledge,interval));
     arr.forEach(c => tableIntervalHours.addRow(c));
 }
 const getIntervalCost = async function (interval) {
     tableIntervalcost.clear();
-    let arr = await colledge.getElementsByCost(interval);
+    let arr = await waitWithSpinner(colledge.getElementsByCost.bind(colledge,interval));
     arr.forEach(c => tableIntervalcost.addRow(c));
 }
 /****************************************************************/
@@ -85,7 +98,7 @@ createRandomCourses();
 FormHandler.fillOptions("course-name", courseData.courseNames);
 FormHandler.fillOptions("lecturer-name", courseData.lecturers);
 formCourse.addHandler(async course => {
-    await colledge.addCourse(course);
+    await waitWithSpinner(colledge.addCourse.bind(colledge,course));
     tableCourses.addRow(course, course.id);
 })
 
