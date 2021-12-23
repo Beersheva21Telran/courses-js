@@ -8,7 +8,11 @@ import getCourse from "./models/Course";
 import FormHandler from "./ui/form-handler";
 import TableHandler from "./ui/table-handler";
 import Spinner from "./ui/spinner";
+import Navigator from "./ui/navigator";
 const N_RANDOM_COURSES = 5;
+const NAVIGATOR_ID = 'nav-tab';
+const COURSES_TAB_ID = 'course-table-tab';
+/*************************************************** */
 //Creating required objects
 const colledge = new Colledge(courseProvider, courseData);
 const formCourse = new FormHandler("course-form", "alert-place");
@@ -20,18 +24,20 @@ const tableIntervalcost = new TableHandler("interval-cost-header", "interval-cos
     ["minInterval", "maxInterval", "amount"]);
 const tableIntervalHours = new TableHandler("interval-hours-header", "interval-hours-body",
     ["minInterval", "maxInterval", "amount"]);
-    const spinner = new Spinner("spinner");
+const spinner = new Spinner("spinner");
+let coursesState = '';
+const navigator = new Navigator(NAVIGATOR_ID);
 /****************************************************************** */
 //functions
 async function waitWithSpinner(awaitFunc) {
     spinner.start();
     let res;
     try {
-       res = await awaitFunc();
+        res = await awaitFunc();
     } finally {
         spinner.stop();
     }
-    
+
     return res;
 }
 async function createRandomCourses() {
@@ -42,13 +48,16 @@ async function createRandomCourses() {
             const course = await createCourse(courseNames, lecturers, minHours, maxHours, minCost, maxCost, types, timing, minYear, maxYear);
             tableCourses.addRow(course);
         }
+    } else {
+        coursesState = JSON.stringify(courses);
+        displayCourses(courses);
     }
 
 }
 window.removeCourse = async function (id) {
     if (confirm(`you are going to remove course with id=${id}`)) {
         try {
-            await waitWithSpinner(colledge.removeCourseById.bind(colledge,id));
+            await waitWithSpinner(colledge.removeCourseById.bind(colledge, id));
             tableCourses.removeRow(id);
         } catch (err) {
             //TODO Alert functionality
@@ -56,9 +65,9 @@ window.removeCourse = async function (id) {
 
     }
 }
- async function coursesSort (key) {
+async function coursesSort(key) {
     tableCourses.clear();
-    const sortedColledge = await waitWithSpinner(colledge.sort.bind(colledge,key));
+    const sortedColledge = await waitWithSpinner(colledge.sort.bind(colledge, key));
     sortedColledge.forEach(c => tableCourses.addRow(c, c.id));
 }
 async function createCourse(courseNames, lecturers, minHours, maxHours, minCost, maxCost, types, timing, minYear, maxYear) {
@@ -74,33 +83,51 @@ async function createCourse(courseNames, lecturers, minHours, maxHours, minCost,
     return await colledge.addCourse(course);
 }
 
-async function displayColledge() {
+ function displayCourses(courses) {
+    tableCourses.clear();
+    courses.forEach(element => {
 
-    (await colledge.getAllCourses()).forEach(element => {
-        console.log(JSON.stringify(element));
         tableCourses.addRow(element, element.id);
 
     });
 }
-const getIntervalHours = async function (interval) {
+async function getIntervalHours(interval) {
     tableIntervalHours.clear();
-    let arr = await waitWithSpinner(colledge.getElementsByHours.bind(colledge,interval));
+    let arr = await waitWithSpinner(colledge.getElementsByHours.bind(colledge, interval));
     arr.forEach(c => tableIntervalHours.addRow(c));
 }
-const getIntervalCost = async function (interval) {
+async function getIntervalCost(interval) {
     tableIntervalcost.clear();
-    let arr = await waitWithSpinner(colledge.getElementsByCost.bind(colledge,interval));
+    let arr = await waitWithSpinner(colledge.getElementsByCost.bind(colledge, interval));
     arr.forEach(c => tableIntervalcost.addRow(c));
 }
+async function poller() {
+    //FIXME we don't need always to request data from server
+    if (isCoursesListActive()) {
+        const courses = await colledge.getAllCourses();
+    const coursesCurrentState = JSON.stringify(courses);
+    if (coursesState !== coursesCurrentState) {
+        coursesState = coursesCurrentState;
+        displayCourses(courses);
+    }
+    }
+    
+
+}
+function isCoursesListActive(){
+    return navigator.getActiveTab() === COURSES_TAB_ID ;
+}
+
 /****************************************************************/
 // Actions
 createRandomCourses();
 FormHandler.fillOptions("course-name", courseData.courseNames);
 FormHandler.fillOptions("lecturer-name", courseData.lecturers);
 formCourse.addHandler(async course => {
-    await waitWithSpinner(colledge.addCourse.bind(colledge,course));
+    await waitWithSpinner(colledge.addCourse.bind(colledge, course));
     tableCourses.addRow(course, course.id);
 })
+setInterval(poller, courseData.pollerInterval);
 
 
 

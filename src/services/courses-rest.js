@@ -47,6 +47,7 @@ export default class CoursesRest {
     }
 
     async exists(id) {
-
+        const response = await fetch(this.#getUrlId(id));
+        return response.ok ;
     }
 }
